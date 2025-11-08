@@ -47,6 +47,10 @@ body{
 .brand-text .brand-name{display:block; font-weight:700; letter-spacing:.12em}
 .brand-sub{display:block; font-size:.85rem; color:var(--muted)}
 .nav{display:flex; flex-direction:column; gap:14px}
+/* Dedicated bottom logo area */
+.sidebar .logo-anchor{margin-top:auto; display:flex; justify-content:center; padding:12px 0 4px}
+.sidebar .logo-anchor img{width:190px; height:190px; object-fit:contain; transition:transform .25s ease}
+.sidebar .logo-anchor:hover img{transform:scale(1.06)}
 
 /* Base nav link */
 .nav a{
@@ -93,7 +97,7 @@ body{
   transition:filter .2s ease, background .2s ease;
 }
 .cta:hover{background:var(--accent-hover)}
-.hamburger{display:none; margin-top:auto; background:var(--accent); border:none; padding:10px; border-radius:10px; cursor:pointer}
+.hamburger{display:none; background:var(--accent); border:none; padding:10px; border-radius:10px; cursor:pointer}
 .hamburger span{display:block; width:22px; height:2px; background:#fff; margin:4px 0}
 
 /* ───────────────── Main ───────────────── */
@@ -214,6 +218,11 @@ figure.tile{ margin:0; }                   /* no default figure margins */
 
 /* ───────────────── Footer ───────────────── */
 .footer{max-width:820px; margin:32px auto 0; text-align:center; color:#aaa}
+.footer p{margin:0 0 16px 0}
+.social-links{display:flex; justify-content:center; gap:24px; margin-top:16px; padding-bottom:16px}
+.social-links a{color:#aaa; transition:color .3s ease, transform .2s ease; display:inline-flex; align-items:center}
+.social-links a:hover{color:#fff; transform:translateY(-2px)}
+.social-links svg{width:24px; height:24px}
 
 /* ───────────────── Lightbox (photos) ───────────────── */
 .lightbox{position:fixed; inset:0; background:rgba(0,0,0,.8); display:none; justify-content:center; align-items:center; z-index:999}
@@ -268,6 +277,7 @@ figure.tile{ margin:0; }                   /* no default figure margins */
   .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .product{grid-template-columns:1fr}
   .iframe-wrap{padding-top:180%}
+  .sidebar .logo-anchor img{width:70px; height:70px}
 }
 @media (max-width: 560px){
   .grid{grid-template-columns:1fr}

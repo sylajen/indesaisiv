@@ -4,18 +4,19 @@ window.SITE = {
   heroPhrases: [
     "cinematic videos.",
     "stunning photography.",
-    "epic VFX."
+    "epic VFX.",
+    "immersive storytelling."
   ],
   about: {
     paragraphs: [
-      "Indesaisiv is a creator-focused studio marrying a CPA-level operations brain with filmmaker instincts. We plan with strategy, shoot with intention, and finish with editorial taste and tasteful VFX.",
+      "Indesaisiv Inc. is a group of creators creating. We plan with strategy, shoot with intention, and edit with precision.",
       "Core capabilities:\n• Video production (corporate, events, weddings, ads)\n• Photography (events, brand, product)\n• Editing & finishing (dialog, music, sound design)\n• VFX & motion polish (cleanups, titles, light compositing)"
     ],
     pillars: [
-      { title: "Video",   text: "Interviews, product, events & weddings on Sony cinema bodies." },
-      { title: "Photo",   text: "Brand, event, and product photography with consistent lighting and color." },
+      { title: "Video",   text: "Interviews, product, events, weddings, music videos, short films - whatever you desire!." },
+      { title: "Photo",   text: "Brand, event, and product photography to capture all your important moments." },
       { title: "Editing", text: "Narrative-first cuts, clean audio, music licensing, and deliverables for web/social." },
-      { title: "VFX",     text: "Subtle enhancements—titles, tracking, paint/cleanup, motion accents when it serves story." }
+      { title: "VFX",     text: "Titles, rotoscoping, portals, Batwings - whatever you want, when it serves story." }
     ],
     contactEmail: "hello@indesaisiv.ca"
   },
@@ -52,18 +53,9 @@ window.SITE = {
     { title: "Animation Reel", category: "Animation", youtubeId: "WuqA0Ly9dj8", tags: ["Voice Over"] }
   ],
 
-  // (Keep or replace these with your own assets)
-  designs: [
-    { title: "Campaign Social Tiles",   img: "/assets/photos/gallery-01.jpg" },
-    { title: "Product Landing Layout",  img: "/assets/photos/gallery-02.jpg" },
-    { title: "Brand System Explorations", img: "/assets/photos/gallery-03.jpg" }
-  ],
   photos: [
-    { title: "Event — Placeholder",    img: "/assets/photos/gallery-04.jpg" },
-    { title: "Portrait — Placeholder", img: "/assets/photos/gallery-05.jpg" },
-    { title: "Product — Placeholder",  img: "/assets/photos/gallery-06.jpg" },
-    { title: "Wedding — Placeholder",  img: "/assets/photos/gallery-07.jpg" },
-    { title: "Aviation — Placeholder", img: "/assets/photos/gallery-08.jpg" }
+    // Managed via assets/photos/photos.json (category + img). Leave empty or add quick manual entries:
+    // { title: "First Dance", category: "Weddings", img: "/assets/photos/dance.jpg" }
   ],
 
   // Brands
