@@ -97,8 +97,42 @@ body{
   transition:filter .2s ease, background .2s ease;
 }
 .cta:hover{background:var(--accent-hover)}
-.hamburger{display:none; background:var(--accent); border:none; padding:10px; border-radius:10px; cursor:pointer}
-.hamburger span{display:block; width:22px; height:2px; background:#fff; margin:4px 0}
+
+/* Hamburger menu button for mobile */
+.hamburger{
+  display:none; 
+  position:fixed; 
+  top:16px; 
+  right:16px; 
+  z-index:9999; 
+  background:var(--accent); 
+  border:none; 
+  padding:12px 14px; 
+  border-radius:10px; 
+  cursor:pointer;
+  box-shadow:0 4px 12px rgba(0,0,0,.4);
+  transition:background .2s ease, transform .2s ease;
+}
+.hamburger:hover{background:var(--accent-hover); transform:scale(1.05)}
+.hamburger:active{transform:scale(.95)}
+.hamburger span{
+  display:block; 
+  width:24px; 
+  height:3px; 
+  background:#fff; 
+  margin:4px 0;
+  border-radius:2px;
+  transition:transform .3s ease, opacity .3s ease;
+}
+
+/* Animate hamburger to X when menu is open */
+.sidebar.open .hamburger span:nth-child(1){transform:translateY(11px) rotate(45deg)}
+.sidebar.open .hamburger span:nth-child(2){opacity:0}
+.sidebar.open .hamburger span:nth-child(3){transform:translateY(-11px) rotate(-45deg)}
+
+/* Ensure hamburger is always visible and above sidebar */
+body{position:relative}
+.hamburger{pointer-events:auto}
 
 /* ───────────────── Main ───────────────── */
 .main{margin-left:260px}
@@ -269,20 +303,63 @@ figure.tile{ margin:0; }                   /* no default figure margins */
 
 /* ───────────────── Responsive ───────────────── */
 @media (max-width: 960px){
-  .main{margin-left:0}
-  .sidebar{transform:translateX(-100%); transition:transform .3s ease}
+  .main{margin-left:0; padding-top:64px} /* Add top padding to prevent content from hiding under fixed hamburger */
+  .sidebar{
+    transform:translateX(-100%); 
+    transition:transform .3s ease;
+    box-shadow:4px 0 20px rgba(0,0,0,.5);
+  }
   .sidebar.open{transform:translateX(0)}
   .hamburger{display:block}
+  
+  /* Overlay when mobile menu is open */
+  .sidebar.open::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.5);
+    z-index:-1;
+  }
+  
   .about-grid{grid-template-columns:1fr}
   .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .product{grid-template-columns:1fr}
   .iframe-wrap{padding-top:180%}
   .sidebar .logo-anchor img{width:70px; height:70px}
+  
+  /* Improve touch targets for mobile nav */
+  .nav a{
+    padding:8px 0;
+    font-size:16px;
+  }
+  
+  /* CTA button in sidebar more prominent on mobile */
+  .sidebar .cta{
+    padding:14px 20px;
+    text-align:center;
+    font-size:15px;
+  }
 }
 @media (max-width: 560px){
   .grid{grid-template-columns:1fr}
   .typed-wrap{font-size:38px}
   .iframe-wrap{padding-top:220%}
+  
+  /* Smaller hero on mobile for better fold */
+  .hero{min-height:70vh}
+  .hero-inner{padding:60px 20px}
+  
+  /* Stack work filter tabs vertically on tiny screens if needed */
+  .work-tabs, .video-subtabs{gap:8px}
+  .tab, .subtab{font-size:14px; padding:8px 12px}
+  
+  /* Make hamburger slightly bigger on small phones */
+  .hamburger{
+    top:12px;
+    right:12px;
+    padding:10px 12px;
+  }
+  .hamburger span{width:26px; height:3px}
 }
 
 /* ── Brands grid (1Take & Stories Blossomed) ── */
