@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Our Brands — Indesaisiv</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/main.css" />
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script defer src="/scripts/content.js"></script>
+  <script defer src="/scripts/main.js"></script>
+  <script defer src="/scripts/brands.js"></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="/"><img src="/assets/logo.svg" class="brand-logo" alt="" onerror="this.style.display='none'"><div class="brand-text"><span class="brand-name">INDESAISIV</span><span class="brand-sub">Video · Photo · Editing · VFX</span></div></a>
+    <nav class="nav">
+      <a href="/about/">About</a>
+      <a href="/work/">Work</a>
+      <a href="/brands/" aria-current="page">Our Brands</a>
+    </nav>
+    <a class="cta" href="/contact/">Contact</a>
+    <button class="hamburger" aria-label="Open Menu"><span></span><span></span><span></span></button>
+  </aside>
+
+  <main class="main">
+    <section class="section section-padded">
+      <div class="section-header">
+        <h2>Our Brands</h2>
+        <p class="section-kicker kicker-gold">Alternative businesses under the Indesaisiv umbrella</p>
+      </div>
+      <div class="brands-grid" id="brands-grid"></div>
+    </section>
+    <footer class="footer"><p>© <span id="year"></span> Indesaisiv.</p></footer>
+  </main>
+</body>
+</html>
