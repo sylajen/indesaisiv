@@ -27,26 +27,29 @@
   </aside>
 
   <main class="main">
-    <section class="section section-dark">
-      <div class="section-header">
-        <h2>Work</h2>
-        <p class="section-kicker">Video · Photo · Design</p>
-      </div>
-
-      <!-- Primary category tabs -->
-      <div class="work-tabs-container">
-        <div class="work-tabs" role="tablist">
-          <button class="tab active" data-filter="all" aria-selected="true">All</button>
-          <button class="tab" data-filter="video">Video</button>
-          <button class="tab" data-filter="design">Design</button>
-          <button class="tab" data-filter="photo">Photo</button>
+    <section class="section section-dark work-landing">
+      <div class="work-hero">
+        <div class="work-hero-copy">
+          <p class="eyebrow">Selected productions</p>
+          <h1>Stories that move brands.</h1>
+          <p class="hero-sub">Showreel-ready clips across corporate, events, weddings, product, music, and more. Strategy first, cinematic always.</p>
+          <div class="hero-actions">
+            <button class="cta" id="play-showreel">Play showreel</button>
+            <a class="cta ghost" href="/contact/">Book a project</a>
+          </div>
         </div>
-
-        <!-- Subcategories (auto-populated by JS for Video or Photo) -->
-        <div class="video-subtabs" id="subtabs" role="tablist"></div>
+        <div class="work-hero-thumb" id="work-hero-thumb"></div>
       </div>
+
+      <div class="featured-wrap" id="featured-work"></div>
+
+      <div class="filters-wrap" id="filters-wrap"></div>
 
       <div class="grid" id="work-grid"></div>
+
+      <div class="load-more-row" id="load-more-btn" style="display:none;">
+        <button class="cta ghost">Load more work</button>
+      </div>
 
       <div class="cta-row">
         <a class="cta ghost" href="/contact/">Let's make something awesome together</a>

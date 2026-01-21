@@ -72,99 +72,133 @@
     }
     let photos = await getPhotos();
 
-  const grid        = q('#work-grid');
-  const subtabsWrap = q('#subtabs');
+  const featuredWrap  = q('#featured-work');
+  const filtersWrap   = q('#filters-wrap');
+  const grid          = q('#work-grid');
+  const heroThumb     = q('#work-hero-thumb');
+  const playShowreel  = q('#play-showreel');
 
-    // Build unique categories
-  const videoCats = Array.from(new Set(videos.map(v => v.category))).sort();
-  let photoCats = Array.from(new Set(photos.map(p => p.category).filter(Boolean))).sort();
+  const cardMarkup = (t, addClass='') => `
+    <figure class="tile ${addClass}" role="button" tabindex="0" data-type="${t.type}" ${t.youtubeId ? `data-yid="${t.youtubeId}"` : ''} onclick="${t.onClick}" onkeypress="if(event.key==='Enter'){${t.onClick}}">
+      <img src="${t.img}" alt="${t.title}" loading="lazy" />
+      <figcaption class="tile-title" data-role="title">${t.title}</figcaption>
+      <span class="tile-badge">${t.badge}</span>
+    </figure>
+  `;
 
-    const setSubtabs = (scope='video', active='all') => {
-      // Support an 'all' scope that merges video + photo categories so that if desired
-      // we can keep showing categories while the user is on the All tab. For now the
-      // All tab will retain whichever categories were last set (video by default).
-      const merged = Array.from(new Set([...videoCats, ...photoCats])).sort();
-      let cats;
-      if (scope === 'photo') cats = photoCats;
-      else if (scope === 'video') cats = videoCats;
-      else if (scope === 'all') cats = merged;
-      else cats = videoCats;
-      if (!cats.length){ subtabsWrap.innerHTML = ''; subtabsWrap.style.display='none'; return; }
-      subtabsWrap.innerHTML = [
-        `<button class="subtab active" data-filter="${scope}" data-sfilter="all">All</button>`,
-        ...cats.map(cat => `<button class="subtab" data-filter="${scope}" data-sfilter="${cat}">${cat}</button>`)
-      ].join('');
-      qa('#subtabs .subtab').forEach(b => b.addEventListener('click', () => {
-        qa('#subtabs .subtab').forEach(x => x.classList.remove('active'));
-        b.classList.add('active');
-        const scopeSel = b.dataset.filter;
-        const subSel = b.dataset.sfilter;
-        render(scopeSel, subSel);
-      }));
-      subtabsWrap.style.display = 'flex';
-    };
+  const videoCards = videos.map(x => ({
+    type:'video',
+    title:x.title,
+    badge:`video · ${x.category}${x.tags?.length ? ` · ${x.tags.join(', ')}` : ''}`,
+    img:yThumb(x.youtubeId),
+    youtubeId:x.youtubeId,
+    category:x.category,
+    onClick:`openVideo('${x.youtubeId}')`
+  }));
+  const designCards = designs.map(x => ({
+    type:'design',
+    title:x.title,
+    badge:'design',
+    img:x.img,
+    youtubeId:null,
+    category:'Design',
+    onClick:`openLightbox('${x.img}')`
+  }));
+  const photoCards = photos.map(x => ({
+    type:'photo',
+    title:x.title,
+    badge:`photo${x.category?` · ${x.category}`:''}`,
+    img:x.img,
+    youtubeId:null,
+    category:x.category || 'Photos',
+    onClick:`openLightbox('${x.img}')`
+  }));
 
-    const render = (filter='all', sub='all') => {
-      let vFilter = 'all', pFilter = 'all';
-      if (filter==='video') vFilter = sub;
-      if (filter==='photo') pFilter = sub;
-      // When viewing "all" and a sub category is chosen (from merged tabs), apply it to videos + photos.
-      if (filter==='all' && sub !== 'all'){ vFilter = sub; pFilter = sub; }
-      const v = videos
-        .filter(x => (vFilter==='all' ? true : x.category===vFilter))
-        .map(x => ({
-          type:'video',
-          title:x.title,
-          badge:`video · ${x.category}${x.tags?.length ? ` · ${x.tags.join(", ")}` : ""}`,
-          img:yThumb(x.youtubeId),
-          youtubeId:x.youtubeId,
-          onClick:`openVideo('${x.youtubeId}')`
-        }));
-      const d = designs.map(x => ({
-        type:'design', title:x.title, badge:'design', img:x.img, onClick:`openLightbox('${x.img}')`
-      }));
-      const p = photos
-        .filter(x => (pFilter==='all' ? true : x.category===pFilter))
-        .map(x => ({
-          type:'photo', title:x.title, badge:`photo${x.category?` · ${x.category}`:''}`, img:x.img, onClick:`openLightbox('${x.img}')`
-        }));
+  const allCards = [...videoCards, ...designCards, ...photoCards];
 
-      let all = [...v, ...d, ...p];
-      if (filter !== 'all') all = all.filter(t => t.type === filter);
+  let displayLimit = 9;
 
-      grid.innerHTML = all.map(t => `
-        <figure class="tile" role="button" tabindex="0" data-type="${t.type}" ${t.youtubeId ? `data-yid="${t.youtubeId}"` : ''} onclick="${t.onClick}" onkeypress="if(event.key==='Enter'){${t.onClick}}">
-          <img src="${t.img}" alt="${t.title}" loading="lazy" />
-          <figcaption class="tile-title" data-role="title">${t.title}</figcaption>
-          <span class="tile-badge">${t.badge}</span>
-        </figure>
-      `).join('');
+  const showreelId = 'BtmS_yjgInQ';
+  if (heroThumb){
+    heroThumb.innerHTML = `
+      <button class="hero-thumb" onclick="openVideo('${showreelId}')" aria-label="Play showreel">
+        <img src="${yThumb(showreelId)}" alt="Showreel" />
+        <span class="play-badge">▶</span>
+      </button>
+    `;
+    if (playShowreel) playShowreel.addEventListener('click', () => openVideo(showreelId));
+  }
 
-      // After render, replace video titles with actual YouTube titles (with "|" trimmed)
-      // Fallback to existing title if fetch fails or is blocked.
-      qa('figure.tile[data-type="video"]').forEach(async fig => {
-        const id = fig.getAttribute('data-yid');
-        if(!id) return;
-        const cap = q('[data-role="title"]', fig);
-        const fetched = await fetchYouTubeTitle(id);
-        if (fetched) cap.textContent = fetched;
-      });
-    };
+  const featuredIds = ['gBGtoQuhYlg', 'KpfO3oaktHw', 'KWOB9Ri3VZo'];
+  const featured = videoCards.filter(v => featuredIds.includes(v.youtubeId));
 
-  render();
+  const categories = Array.from(new Set(allCards.map(c => c.category).filter(Boolean)));
 
-    // Primary tabs (All / Video / Design / Photo)
-    qa('.tab').forEach(btn => btn.addEventListener('click', () => {
-      qa('.tab').forEach(b => b.classList.remove('active'));
+  const renderFeatured = () => {
+    if (!featured.length){ featuredWrap.innerHTML=''; return; }
+    featuredWrap.innerHTML = `
+      <div class="section-header mini">
+        <h3>Featured highlights</h3>
+        <p class="section-kicker">Recent pieces clients loved</p>
+      </div>
+      <div class="grid featured-grid">${featured.map(c => cardMarkup(c,'featured')).join('')}</div>
+    `;
+  };
+
+  const renderFilters = () => {
+    const typeFilters = ['all','video','photo','design'];
+    filtersWrap.innerHTML = `
+      <div class="filter-group centered">
+        <div class="chip-row" id="filter-type">
+          ${typeFilters.map((f,i) => `<button class="chip ${i===0?'active':''}" data-type="${f}">${f.charAt(0).toUpperCase()+f.slice(1)}</button>`).join('')}
+        </div>
+      </div>
+    `;
+
+    qa('#filter-type .chip').forEach(btn => btn.addEventListener('click', () => {
+      qa('#filter-type .chip').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      const filter = btn.dataset.filter;
-      if (filter === 'video'){ setSubtabs('video'); render('video','all'); }
-      else if (filter === 'photo'){ setSubtabs('photo'); render('photo','all'); }
-      // On "All", keep the subfilters visible and show a merged list of categories
-      // that can filter across both videos and photos.
-      else { setSubtabs('all'); subtabsWrap.style.display='flex'; render('all'); }
+      renderGrid();
     }));
-    // Initialize subtabs for Video on first load (default scope)
-    setSubtabs('video');
+  };
+
+  const renderGrid = () => {
+    const activeType = q('#filter-type .chip.active')?.dataset.type || 'all';
+
+    let list = allCards.slice();
+    if (activeType !== 'all') list = list.filter(c => c.type === activeType);
+
+    const displayedList = list.slice(0, displayLimit);
+    const hasMore = list.length > displayLimit;
+
+    grid.innerHTML = displayedList.map(c => cardMarkup(c)).join('');
+
+    const loadMoreBtn = q('#load-more-btn');
+    if (hasMore) {
+      if (loadMoreBtn) loadMoreBtn.style.display = 'flex';
+    } else {
+      if (loadMoreBtn) loadMoreBtn.style.display = 'none';
+    }
+
+    qa('figure.tile[data-type="video"]').forEach(async fig => {
+      const id = fig.getAttribute('data-yid');
+      if(!id) return;
+      const cap = q('[data-role="title"]', fig);
+      const fetched = await fetchYouTubeTitle(id);
+      if (fetched) cap.textContent = fetched;
+    });
+  };
+
+  renderFeatured();
+  renderFilters();
+  renderGrid();
+
+  const loadMoreBtn = q('#load-more-btn');
+  if (loadMoreBtn) {
+    loadMoreBtn.addEventListener('click', () => {
+      displayLimit += 9;
+      renderGrid();
+    });
+  }
   });
 })();
