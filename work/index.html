@@ -22,7 +22,7 @@
       <a href="/work/" aria-current="page">Work</a>
       <a href="/brands/">Our Brands</a>
     </nav>
-    <a class="cta" href="/contact/">Contact</a>
+    <a class="cta" href="/contact/">CONTACT US</a>
     <a class="logo-anchor" href="/"><img src="/assets/logo.svg" class="brand-logo" alt="Indesaisiv logo" onerror="this.style.display='none'"></a>
   </aside>
 
@@ -30,9 +30,11 @@
     <section class="section section-dark">
       <div class="section-header">
         <h2>Work</h2>
-        <p class="section-kicker">Video · Photo · Design (Editing & VFX baked in)</p>
+        <p class="section-kicker">Video · Photo · Design</p>
+      </div>
 
-        <!-- Primary category tabs -->
+      <!-- Primary category tabs -->
+      <div class="work-tabs-container">
         <div class="work-tabs" role="tablist">
           <button class="tab active" data-filter="all" aria-selected="true">All</button>
           <button class="tab" data-filter="video">Video</button>
@@ -40,8 +42,8 @@
           <button class="tab" data-filter="photo">Photo</button>
         </div>
 
-  <!-- Subcategories (auto-populated by JS for Video or Photo) -->
-  <div class="video-subtabs" id="subtabs" role="tablist"></div>
+        <!-- Subcategories (auto-populated by JS for Video or Photo) -->
+        <div class="video-subtabs" id="subtabs" role="tablist"></div>
       </div>
 
       <div class="grid" id="work-grid"></div>

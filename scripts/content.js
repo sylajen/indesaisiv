@@ -7,19 +7,6 @@ window.SITE = {
     "epic VFX.",
     "immersive storytelling."
   ],
-  about: {
-    paragraphs: [
-      "Indesaisiv Inc. is a group of creators creating. We plan with strategy, shoot with intention, and edit with precision.",
-      "Core capabilities:\n• Video production (corporate, events, weddings, ads)\n• Photography (events, brand, product)\n• Editing & finishing (dialog, music, sound design)\n• VFX & motion polish (cleanups, titles, light compositing)"
-    ],
-    pillars: [
-      { title: "Video",   text: "Interviews, product, events, weddings, music videos, short films - whatever you desire!." },
-      { title: "Photo",   text: "Brand, event, and product photography to capture all your important moments." },
-      { title: "Editing", text: "Narrative-first cuts, clean audio, music licensing, and deliverables for web/social." },
-      { title: "VFX",     text: "Titles, rotoscoping, portals, Batwings - whatever you want, when it serves story." }
-    ],
-    contactEmail: "hello@indesaisiv.ca"
-  },
 
   /* ───────── WORK: Videos (YouTube) ─────────
      - category drives the auto-generated sub-tabs
@@ -65,14 +52,16 @@ window.SITE = {
       tag: "Software",
       desc: "Backup & ingest made easy, designed for professionals by professionals.",
       img: "/assets/1takelogo.png",
-      url: "https://1takestudio.ca"
+      url: "https://1takestudio.ca",
+      color: "#4a7cff"  /* Blue from 1Take logo */
     },
     {
       title: "Stories Blossomed",
       tag: "Weddings",
       desc: "Our luxury wedding film brand that blends cinematic visuals with heartfelt storytelling.",
       img: "/assets/storiesblossomedlogo.png",
-      url: "https://storiesblossomed.ca"
+      url: "https://storiesblossomed.ca",
+      color: "#e8a5c9"  /* Pink from Stories Blossomed logo */
     }
   ]
 };

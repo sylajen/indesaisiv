@@ -56,4 +56,42 @@ document.addEventListener('DOMContentLoaded', () => {
   const email = window.SITE?.about?.contactEmail || 'hello@indesaisiv.ca';
   const emailLink = $('#contact-email');
   if (emailLink){ emailLink.href = `mailto:${email}`; emailLink.textContent = email; }
+
+  // Reveal-on-scroll animations for sections below the hero
+  const revealEls = $$('.reveal-on-scroll');
+  if (revealEls.length){
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion){
+      revealEls.forEach(el => el.classList.add('is-visible'));
+    } else if ('IntersectionObserver' in window){
+      const io = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting){
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin:'0px 0px -12% 0px', threshold:0.2 });
+
+      revealEls.forEach(el => io.observe(el));
+    } else {
+      // Fallback: show immediately on older browsers
+      revealEls.forEach(el => el.classList.add('is-visible'));
+    }
+  }
+    const wrap = document.getElementById('brands-grid-home');
+    if (wrap) {
+      wrap.innerHTML = brands.map(b => `
+        <article class="brand-card">
+          <img src="${b.img}" alt="${b.title}" loading="lazy" />
+          <div class="brand-body">
+            <div class="brand-tag gold-chip">${b.tag}</div>
+            <h3 class="brand-title">${b.title}</h3>
+            <p class="brand-desc">${b.desc}</p>
+            <a class="cta luxe" href="${b.url}" target="_blank" rel="noopener">Visit ${b.title}</a>
+          </div>
+        </article>
+      `).join('');
+    }
 });
