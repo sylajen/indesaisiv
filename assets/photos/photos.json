@@ -4,7 +4,6 @@
 	{ "title": "Sports Highlight",  "category": "Sports",    "img": "/assets/photos/sports-1.jpg" },
 	{ "title": "Music Video Still", "category": "Music Videos", "img": "/assets/photos/musicvideo-1.jpg" },
 	{ "title": "Music Video Still", "category": "Music Videos", "img": "/assets/photos/musicvideo-2.jpg" },
-	{ "title": "Music Video Still", "category": "Music Videos", "img": "/assets/photos/musicvideo-3.jpg" },
 	{ "title": "Product Shot", "category": "Product", "img": "/assets/photos/product-1.jpg" },
 	{ "title": "Product Shot", "category": "Product", "img": "/assets/photos/product-2.jpg" },
 	{ "title": "Product Shot", "category": "Product", "img": "/assets/photos/product-3.jpg" }

@@ -38,25 +38,48 @@
     q('#video-iframe').src = url;
     q('#videobox').classList.add('open');
     q('#videobox').setAttribute('aria-hidden','false');
+    // Hide hamburger menu on mobile
+    const burger = document.querySelector('.hamburger');
+    if (burger) burger.style.display = 'none';
   }
   function closeVideo(){
     q('#video-iframe').src = '';
     q('#videobox').classList.remove('open');
     q('#videobox').setAttribute('aria-hidden','true');
+    // Show hamburger menu again
+    const burger = document.querySelector('.hamburger');
+    if (burger) burger.style.display = '';
   }
   function openLightbox(src){
     q('#lightbox-img').src = src;
     q('#lightbox').classList.add('open');
     q('#lightbox').setAttribute('aria-hidden','false');
+    // Hide hamburger menu on mobile
+    const burger = document.querySelector('.hamburger');
+    if (burger) burger.style.display = 'none';
   }
   function closeLightbox(){
     q('#lightbox').classList.remove('open');
     q('#lightbox').setAttribute('aria-hidden','true');
+    // Show hamburger menu again
+    const burger = document.querySelector('.hamburger');
+    if (burger) burger.style.display = '';
   }
   window.openVideo = openVideo;
   window.closeVideo = closeVideo;
   window.openLightbox = openLightbox;
   window.closeLightbox = closeLightbox;
+
+  // Add ESC key listener to close video/lightbox
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' || e.key === 'Esc') {
+      if (q('#videobox')?.classList.contains('open')) {
+        closeVideo();
+      } else if (q('#lightbox')?.classList.contains('open')) {
+        closeLightbox();
+      }
+    }
+  });
 
   document.addEventListener('DOMContentLoaded', async () => {
     const site = window.SITE || {};

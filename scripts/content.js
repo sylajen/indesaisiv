@@ -26,11 +26,6 @@ window.SITE = {
     { title: "Corporate Highlights", category: "Corporate Highlights", youtubeId: "l2-2aV_kewM" },
     { title: "Corporate Highlights", category: "Corporate Highlights", youtubeId: "KWOB9Ri3VZo" },
 
-    // Short films (also acting)
-    { title: "Short Film", category: "Short Films", youtubeId: "BOdh7r6gAhc", tags: ["Acting"] },
-    { title: "Short Film", category: "Short Films", youtubeId: "mQUzppo8XHQ", tags: ["Acting"] },
-    { title: "Short Film", category: "Short Films", youtubeId: "SM0SijQwN7w", tags: ["Acting"] },
-
     // Fashion
     { title: "Fashion Film", category: "Fashion", youtubeId: "RIXiRd-un4U" },
     { title: "Fashion Film", category: "Fashion", youtubeId: "6KJ9lA0pCk4" },
@@ -51,7 +46,7 @@ window.SITE = {
     {
       title: "1Take Studio",
       tag: "Software",
-      desc: "Backup & ingest made easy, designed for professionals by professionals.",
+      desc: "Crafting authentic cinematic videos that help brands tell their story and grow their business.",
       img: "/assets/1takelogo.png",
       url: "https://1takestudio.ca",
       color: "#4a7cff"  /* Blue from 1Take logo */
